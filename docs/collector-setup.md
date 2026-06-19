@@ -22,11 +22,18 @@ The installer:
 - Clones this repo to `/opt/ai-usage-card`.
 - Creates `/etc/ai-usage-card/mqtt.env` for MQTT settings.
 - Creates systemd services and timers for Codex and Gemini every 15 minutes.
+- Uses the `aiusage` service user for the timers. Complete OAuth sign-in as that same user before expecting the timers to publish data.
 
 Edit MQTT settings after install:
 
 ```bash
 sudo nano /etc/ai-usage-card/mqtt.env
+```
+
+Then complete CLI sign-in:
+
+```bash
+sudo /opt/ai-usage-card/examples/auth/sign-in-linux-lxc.sh
 sudo systemctl start ai-usage-codex.service ai-usage-gemini.service
 ```
 
@@ -40,6 +47,14 @@ curl -fsSL https://raw.githubusercontent.com/RoBro92/HACS-ai-usage-banner-card/m
 
 The installer clones the repo to `~/ai-usage-card`, creates `~/.ai-usage-card.env`, and installs LaunchAgents that run the collector every 15 minutes.
 
+Complete OAuth sign-in as the same macOS user that installed the LaunchAgents:
+
+```bash
+~/ai-usage-card/examples/auth/sign-in-macos.sh
+launchctl start com.robro92.ai-usage-codex
+launchctl start com.robro92.ai-usage-gemini
+```
+
 ## Windows Installer
 
 Run PowerShell as your normal user:
@@ -49,6 +64,50 @@ iwr https://raw.githubusercontent.com/RoBro92/HACS-ai-usage-banner-card/main/exa
 ```
 
 The installer clones the repo to `%USERPROFILE%\ai-usage-card`, creates `.env.ps1`, and registers Scheduled Tasks for Codex and Gemini every 15 minutes.
+
+Complete OAuth sign-in as the same Windows user that owns the Scheduled Tasks:
+
+```powershell
+& "$env:USERPROFILE\ai-usage-card\examples\auth\sign-in-windows.ps1"
+Start-ScheduledTask -TaskName "AI Usage Codex"
+Start-ScheduledTask -TaskName "AI Usage Gemini"
+```
+
+## OAuth Sign-In
+
+Codex and Gemini both support browser-based OAuth sign-in for user accounts. Complete sign-in once before relying on the scheduled collector.
+
+The critical rule is that the OAuth cache belongs to an OS user:
+
+- Linux/LXC systemd timers run as `aiusage`, so sign in as `aiusage`.
+- macOS LaunchAgents run as your current macOS user, so sign in as that user.
+- Windows Scheduled Tasks run as your current Windows user, so sign in as that user.
+
+Codex opens a browser for ChatGPT sign-in and caches credentials for later CLI runs. Gemini CLI's recommended user flow is to start `gemini`, choose Sign in with Google, and follow the browser prompt. On truly headless hosts, OAuth can be awkward because the browser and terminal need to complete the same login flow; if the browser flow cannot complete on the host, run the sign-in helper from an SSH session where you can copy the sign-in URL, or use the provider's supported non-interactive authentication method instead.
+
+Sign-in helpers:
+
+```bash
+# Linux/LXC
+sudo /opt/ai-usage-card/examples/auth/sign-in-linux-lxc.sh
+
+# macOS
+~/ai-usage-card/examples/auth/sign-in-macos.sh
+```
+
+```powershell
+# Windows
+& "$env:USERPROFILE\ai-usage-card\examples\auth\sign-in-windows.ps1"
+```
+
+After sign-in, run one collector manually and confirm MQTT sensors appear in Home Assistant:
+
+```bash
+node /opt/ai-usage-card/examples/collectors/run-ai-usage-collector.mjs --provider codex
+node /opt/ai-usage-card/examples/collectors/run-ai-usage-collector.mjs --provider gemini
+```
+
+On macOS or Windows, replace `/opt/ai-usage-card` with the install directory shown by the installer.
 
 ## Manual LXC Packages
 

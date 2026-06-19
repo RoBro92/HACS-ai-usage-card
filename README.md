@@ -140,26 +140,6 @@ iwr https://raw.githubusercontent.com/RoBro92/HACS-ai-usage-banner-card/main/exa
 | `models[].five_hour` | No | Object containing `remaining` and `reset` entity IDs. |
 | `models[].weekly` | No | Object containing `remaining` and `reset` entity IDs. |
 
-## Local Development
-
-```bash
-npm run build
-npm run check
-python3 -m http.server 4173
-```
-
-The HACS release file is generated at:
-
-```text
-dist/HACS-ai-usage-banner-card.js
-```
-
-Local visual demo:
-
-```text
-http://127.0.0.1:4173/demo/
-```
-
 ## Origin
 
 This repo was scaffolded from the inline `ai-usage-banner-card` resource used on a Desk Display Home Assistant dashboard. The live dashboard card reads MQTT sensors named like `sensor.ai_allowance_monitor_codex_gpt_5h_remaining` and `sensor.ai_allowance_monitor_codex_gpt_weekly_reset`.

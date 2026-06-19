@@ -37,6 +37,9 @@ test("release and support files are present", () => {
     "examples/install/install-linux-lxc.sh",
     "examples/install/install-macos.sh",
     "examples/install/install-windows.ps1",
+    "examples/auth/sign-in-linux-lxc.sh",
+    "examples/auth/sign-in-macos.sh",
+    "examples/auth/sign-in-windows.ps1",
     "examples/collectors/run-ai-usage-collector.mjs",
     "demo/index.html",
     "dist/HACS-ai-usage-banner-card.js",
@@ -74,6 +77,10 @@ test("collector documentation covers Linux LXC, macOS, and Windows installs", ()
   assert.match(docs, /macOS/);
   assert.match(docs, /Windows/);
   assert.match(docs, /run-ai-usage-collector\.mjs/);
+  assert.match(docs, /OAuth/);
+  assert.match(docs, /sign-in-linux-lxc\.sh/);
+  assert.match(docs, /sign-in-macos\.sh/);
+  assert.match(docs, /sign-in-windows\.ps1/);
 });
 
 test("card source registers a Lovelace visual editor", () => {

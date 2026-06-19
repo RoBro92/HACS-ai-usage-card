@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.1
+
+- Removes local development instructions from user-facing README docs.
+- Adds OAuth sign-in guidance for Codex and Gemini collectors.
+- Adds Linux/LXC, macOS, and Windows sign-in helper scripts.
+- Updates the Linux/LXC installer so the collector service user can cache OAuth credentials.
+
 ## 0.2.0
 
 - Adds Lovelace visual editor support.

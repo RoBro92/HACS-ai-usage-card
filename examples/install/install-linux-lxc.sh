@@ -21,7 +21,7 @@ if ! command -v gemini >/dev/null 2>&1; then
   npm install -g @google/gemini-cli
 fi
 
-id -u "$SERVICE_USER" >/dev/null 2>&1 || useradd --system --create-home --shell /usr/sbin/nologin "$SERVICE_USER"
+id -u "$SERVICE_USER" >/dev/null 2>&1 || useradd --system --create-home --shell /bin/bash "$SERVICE_USER"
 rm -rf "$INSTALL_DIR"
 git clone --depth=1 "$REPO_URL" "$INSTALL_DIR"
 chown -R "$SERVICE_USER:$SERVICE_USER" "$INSTALL_DIR"
