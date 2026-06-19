@@ -1,0 +1,18 @@
+name: Public tester feedback
+description: Share install and setup feedback.
+title: "[Testing]: "
+labels: ["testing"]
+body:
+  - type: input
+    id: install_method
+    attributes:
+      label: Install method
+      placeholder: HACS custom repository or manual
+    validations:
+      required: true
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Feedback
+    validations:
+      required: true

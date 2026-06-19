@@ -1,0 +1,9 @@
+type: custom:ai-usage-banner-card
+models:
+  - name: CODEX
+    five_hour:
+      remaining: sensor.codex_5h_remaining
+      reset: sensor.codex_5h_reset
+    weekly:
+      remaining: sensor.codex_weekly_remaining
+      reset: sensor.codex_weekly_reset

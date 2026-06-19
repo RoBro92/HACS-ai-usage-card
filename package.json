@@ -1,0 +1,40 @@
+{
+  "name": "hacs-ai-usage-banner-card",
+  "version": "0.1.0",
+  "description": "A Home Assistant Lovelace card for AI CLI allowance and token window monitoring.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-dist.mjs",
+    "check": "node --check ai-usage-banner-card.js && node --check examples/collectors/parse-ai-usage.mjs && node --test test/*.test.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "keywords": [
+    "home-assistant",
+    "lovelace",
+    "custom-card",
+    "hacs",
+    "ai",
+    "codex",
+    "gemini",
+    "claude",
+    "mqtt"
+  ],
+  "license": "MIT",
+  "files": [
+    "dist",
+    "docs",
+    "examples",
+    "README.md",
+    "INSTALL.md",
+    "hacs.json",
+    "info.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RoBro92/HACS-ai-usage-banner-card.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RoBro92/HACS-ai-usage-banner-card/issues"
+  },
+  "homepage": "https://github.com/RoBro92/HACS-ai-usage-banner-card#readme"
+}

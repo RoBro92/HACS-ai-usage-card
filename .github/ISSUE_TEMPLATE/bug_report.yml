@@ -1,0 +1,26 @@
+name: Bug report
+description: Report a problem with the card.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: config
+    attributes:
+      label: Card config
+      render: yaml
+    validations:
+      required: true
+  - type: textarea
+    id: sensor_states
+    attributes:
+      label: Relevant sensor states
+      render: text
+    validations:
+      required: false

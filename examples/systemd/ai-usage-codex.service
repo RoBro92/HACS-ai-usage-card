@@ -1,0 +1,13 @@
+[Unit]
+Description=Publish Codex AI usage to Home Assistant MQTT
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=aiusage
+Environment=MQTT_HOST=homeassistant.local
+Environment=MQTT_PORT=1883
+Environment=MQTT_USER=homeassistant
+EnvironmentFile=-/etc/ai-usage-card/mqtt.env
+ExecStart=/opt/ai-usage-card/examples/collectors/codex-example.sh
