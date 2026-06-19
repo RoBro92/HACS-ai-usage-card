@@ -31,6 +31,8 @@ test("release and support files are present", () => {
     "docs/collector-setup.md",
     "docs/mqtt-discovery.md",
     "docs/live-card-investigation.md",
+    "docs/images/ai-usage-card-preview.svg",
+    "docs/images/ai-usage-editor-preview.svg",
     "examples/dashboard.yaml",
     "examples/collectors/parse-ai-usage.mjs",
     "examples/collectors/publish-ai-usage.sh",
@@ -59,6 +61,10 @@ test("card picker metadata and docs point to the public repo", () => {
   assert.match(source, /documentationURL:/);
   assert.match(readme, /my\.home-assistant\.io\/redirect\/hacs_repository/);
   assert.match(readme, /\/hacsfiles\/HACS-ai-usage-banner-card\/HACS-ai-usage-banner-card\.js/);
+  assert.match(readme, /docs\/images\/ai-usage-card-preview\.svg/);
+  assert.match(readme, /docs\/images\/ai-usage-editor-preview\.svg/);
+  assert.doesNotMatch(readme, /## Origin/);
+  assert.doesNotMatch(readme, /inline `ai-usage-banner-card` resource/);
 });
 
 test("live investigation records the read-only Home Assistant wiring", () => {

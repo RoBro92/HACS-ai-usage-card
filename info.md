@@ -2,6 +2,8 @@
 
 Compact Lovelace card for AI CLI allowance monitoring.
 
+![AI Usage Banner Card preview](docs/images/ai-usage-card-preview.svg)
+
 ## Public Testing
 
 Install as a HACS custom Dashboard repository:

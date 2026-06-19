@@ -4,6 +4,10 @@ AI Usage Banner Card is a Home Assistant Lovelace custom card for monitoring AI 
 
 [![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=RoBro92&repository=HACS-ai-usage-banner-card&category=dashboard)
 
+## Preview
+
+![AI Usage Banner Card preview](docs/images/ai-usage-card-preview.svg)
+
 ## What It Displays
 
 - A model/account label and logo.
@@ -74,6 +78,8 @@ The card includes a Lovelace visual editor. It currently has preset toggles for:
 
 Turning a preset on creates the matching row with logo, accent color, and the default MQTT discovery entity IDs. Turning it off removes that preset row without touching unrelated custom rows.
 
+![AI Usage Banner Card visual editor preview](docs/images/ai-usage-editor-preview.svg)
+
 ## Sensor Contract
 
 Each model can define these sensors:
@@ -139,7 +145,3 @@ iwr https://raw.githubusercontent.com/RoBro92/HACS-ai-usage-banner-card/main/exa
 | `models[].logo` | No | Explicit logo URL, `/local/` path, `/api/` path, or data URL. |
 | `models[].five_hour` | No | Object containing `remaining` and `reset` entity IDs. |
 | `models[].weekly` | No | Object containing `remaining` and `reset` entity IDs. |
-
-## Origin
-
-This repo was scaffolded from the inline `ai-usage-banner-card` resource used on a Desk Display Home Assistant dashboard. The live dashboard card reads MQTT sensors named like `sensor.ai_allowance_monitor_codex_gpt_5h_remaining` and `sensor.ai_allowance_monitor_codex_gpt_weekly_reset`.

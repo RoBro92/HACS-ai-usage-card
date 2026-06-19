@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.2
+
+- Removes the internal origin note from the user-facing README.
+- Adds README preview images for the card and visual editor.
+
 ## 0.2.1
 
 - Removes local development instructions from user-facing README docs.
