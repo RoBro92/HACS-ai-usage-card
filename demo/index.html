@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AI Usage Banner Card Demo</title>
+    <title>AI Usage Card Demo</title>
     <style>
       :root {
         color-scheme: dark;
@@ -74,17 +74,17 @@
   <body>
     <main>
       <section class="dashboard">
-        <ai-usage-banner-card id="card"></ai-usage-banner-card>
+        <ai-usage-card id="card"></ai-usage-card>
       </section>
       <aside class="surface">
         <h1>Visual editor preview</h1>
-        <p>Gemini and Codex toggles update the card config using the Lovelace editor event.</p>
-        <ai-usage-banner-card-editor id="editor"></ai-usage-banner-card-editor>
+        <p>Toggles update the card config using the Lovelace editor event.</p>
+        <ai-usage-card-editor id="editor"></ai-usage-card-editor>
       </aside>
     </main>
 
     <script type="module">
-      import { AiUsageBannerCard, createPresetModel } from "../ai-usage-banner-card.js";
+      import { AiUsageCard, createPresetModel } from "../ai-usage-card.js";
 
       customElements.define("ha-card", class extends HTMLElement {});
 
@@ -94,22 +94,13 @@
         width: "62.5%",
         max_width: "62.5%",
         align: "left",
+        show_status: true,
+        // The old code checked for 'models' property when it was edited, so use models.
         models: [
           createPresetModel("gemini"),
-          {
-            name: "CLAUDE",
-            accent: "#b9a7ff",
-            logo: "https://cdn.simpleicons.org/claude/b9a7ff",
-            five_hour: {
-              remaining: "sensor.ai_allowance_monitor_agy_claude_gpt_5h_remaining",
-              reset: "sensor.ai_allowance_monitor_agy_claude_gpt_5h_reset",
-            },
-            weekly: {
-              remaining: "sensor.ai_allowance_monitor_agy_claude_gpt_weekly_remaining",
-              reset: "sensor.ai_allowance_monitor_agy_claude_gpt_weekly_reset",
-            },
-          },
+          createPresetModel("claude"),
           createPresetModel("codex"),
+          createPresetModel("grok")
         ],
       };
 
@@ -119,14 +110,25 @@
           "sensor.ai_allowance_monitor_agy_gemini_5h_reset": { state: "2026-06-19T21:35:07+00:00" },
           "sensor.ai_allowance_monitor_agy_gemini_weekly_remaining": { state: "100.0" },
           "sensor.ai_allowance_monitor_agy_gemini_weekly_reset": { state: "2026-06-19T21:35:07+00:00" },
-          "sensor.ai_allowance_monitor_agy_claude_gpt_5h_remaining": { state: "100.0" },
-          "sensor.ai_allowance_monitor_agy_claude_gpt_5h_reset": { state: "2026-06-19T21:35:07+00:00" },
-          "sensor.ai_allowance_monitor_agy_claude_gpt_weekly_remaining": { state: "99.51" },
-          "sensor.ai_allowance_monitor_agy_claude_gpt_weekly_reset": { state: "2026-06-26T02:00:07+00:00" },
+          "sensor.ai_allowance_monitor_agy_gemini_status": { state: "ok" },
+
+          "sensor.ai_allowance_monitor_claude_5h_remaining": { state: "100.0" },
+          "sensor.ai_allowance_monitor_claude_5h_reset": { state: "2026-06-19T21:35:07+00:00" },
+          "sensor.ai_allowance_monitor_claude_weekly_remaining": { state: "99.51" },
+          "sensor.ai_allowance_monitor_claude_weekly_reset": { state: "2026-06-26T02:00:07+00:00" },
+          "sensor.ai_allowance_monitor_claude_status": { state: "auth_required" },
+
           "sensor.ai_allowance_monitor_codex_gpt_5h_remaining": { state: "98.0" },
           "sensor.ai_allowance_monitor_codex_gpt_5h_reset": { state: "2026-06-20T00:15:42+00:00" },
           "sensor.ai_allowance_monitor_codex_gpt_weekly_remaining": { state: "73.0" },
           "sensor.ai_allowance_monitor_codex_gpt_weekly_reset": { state: "2026-06-24T21:18:14+00:00" },
+          "sensor.ai_allowance_monitor_codex_gpt_status": { state: "error" },
+          
+          "sensor.ai_allowance_monitor_grok_5h_remaining": { state: "50.0" },
+          "sensor.ai_allowance_monitor_grok_5h_reset": { state: "2026-06-20T00:15:42+00:00" },
+          "sensor.ai_allowance_monitor_grok_weekly_remaining": { state: "25.0" },
+          "sensor.ai_allowance_monitor_grok_weekly_reset": { state: "2026-06-24T21:18:14+00:00" },
+          "sensor.ai_allowance_monitor_grok_status": { state: "unknown" },
         },
       };
 
@@ -142,7 +144,7 @@
       editor.addEventListener("config-changed", (event) => applyConfig(event.detail.config));
       applyConfig(config);
 
-      window.demoCard = { card, editor, hass, config, AiUsageBannerCard };
+      window.demoCard = { card, editor, hass, config, AiUsageCard };
     </script>
   </body>
 </html>
